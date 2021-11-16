@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "4930a24b-9761-4cf1-988d-d37281ae6a9e",
+		"name": "student details",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "student details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{studenturl}}/api/studentsDetails",
+					"host": [
+						"{{studenturl}}"
+					],
+					"path": [
+						"api",
+						"studentsDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post student details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var studentData=pm.response.json()\r",
+							"pm.environment.set(\"StudentId\",studentData.id)\r",
+							"\r",
+							"pm.test( \"first name validation\",function()\r",
+							"{ pm.expect(studentData.first_name).to.eql(\"Osama\");}\r",
+							");\r",
+							"pm.test( \"first name validation\",function()\r",
+							"{ pm.expect(studentData.middle_name).to.eql(\"Bin\");}\r",
+							");\r",
+							"pm.test( \"first name validation\",function()\r",
+							"{ pm.expect(studentData.last_name).to.eql(\"Laden\");}\r",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"first_name\": \"Osama\",\r\n\r\n  \"middle_name\": \"Bin\",\r\n\r\n  \"last_name\": \"Laden\",\r\n\r\n  \"date_of_birth\": \"3/02/1973\"\r\n\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{studenturl}}/api/studentsDetails",
+					"host": [
+						"{{studenturl}}"
+					],
+					"path": [
+						"api",
+						"studentsDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var updateData =pm.response.json()\r",
+							"pm.environment.set(\"update_Id\",updateData)\r",
+							"\r",
+							"pm.test( \"update status\",function()\r",
+							"{ pm.expect(updateData.msg).to.eql(\"update  data success\");}\r",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"id\":{{StudentId}},\r\n\r\n  \"first_name\": \"Mr. \",\r\n\r\n  \"middle_name\": \" \",\r\n\r\n  \"last_name\": \"Bean \",\r\n\r\n  \"date_of_birth\": \"sample \"\r\n\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{studenturl}}/api/studentsDetails/{{StudentId}}",
+					"host": [
+						"{{studenturl}}"
+					],
+					"path": [
+						"api",
+						"studentsDetails",
+						"{{StudentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get updated details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{studenturl}}/api/studentsDetails/{{StudentId}}",
+					"host": [
+						"{{studenturl}}"
+					],
+					"path": [
+						"api",
+						"studentsDetails",
+						"{{StudentId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
